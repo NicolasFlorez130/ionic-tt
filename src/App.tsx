@@ -31,12 +31,12 @@ import { client } from './config/apollo-client';
 import { routes } from './lib/routes';
 import FavoritesOutlet from './app/favorites/favorites-outlet';
 import ProductsOutlet from './app/products/products-outlet';
-import { useSetupSavedProducts } from './lib/stores/saved-products.store';
+import { useSetupFavorites } from './lib/stores/favorites.store';
 
 setupIonicReact();
 
 function App() {
-   useSetupSavedProducts();
+   useSetupFavorites();
 
    return (
       <ApolloProvider client={client}>

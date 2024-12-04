@@ -5,24 +5,24 @@ import {
    IonTitle,
    IonToolbar,
 } from '@ionic/react';
-import { useSavedProductsStore } from '../../../lib/stores/saved-products.store';
+import { useFavoritesStore } from '../../../lib/stores/favorites.store';
 import { ProductsList } from '../../../components/products-list';
 import { routes } from '../../../lib/routes';
 
 function FavoritesView() {
-   const products = useSavedProductsStore(store => store.products);
+   const products = useFavoritesStore(store => store.products);
 
    return (
       <IonPage>
          <IonHeader>
             <IonToolbar>
-               <IonTitle>Favorite products</IonTitle>
+               <IonTitle>Favorites</IonTitle>
             </IonToolbar>
          </IonHeader>
          <IonContent color="light">
             <IonHeader collapse="condense">
                <IonToolbar>
-                  <IonTitle size="large">Favorite products</IonTitle>
+                  <IonTitle size="large">Favorites</IonTitle>
                </IonToolbar>
             </IonHeader>
             <section>

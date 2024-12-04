@@ -4,14 +4,14 @@ import { Preferences } from '@capacitor/preferences';
 import { FAV_PRODUCTS } from '../keys';
 import { useEffect } from 'react';
 
-interface SavedProductsStore {
+interface FavoritesStore {
    products: ProductPreview[];
    setProducts(products: ProductPreview[]): void;
    addProduct(product: ProductPreview): void;
    removeProduct(id: string): void;
 }
 
-export const useSavedProductsStore = create<SavedProductsStore>(set => ({
+export const useFavoritesStore = create<FavoritesStore>(set => ({
    products: [],
    setProducts: products => set({ products }),
    removeProduct: id =>
@@ -42,8 +42,8 @@ export const useSavedProductsStore = create<SavedProductsStore>(set => ({
       }),
 }));
 
-export function useSetupSavedProducts() {
-   const setProducts = useSavedProductsStore(store => store.setProducts);
+export function useSetupFavorites() {
+   const setProducts = useFavoritesStore(store => store.setProducts);
 
    useEffect(() => {
       (async () => {

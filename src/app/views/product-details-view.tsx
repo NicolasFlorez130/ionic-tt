@@ -27,7 +27,7 @@ import {
    heartHalf,
    heartOutline,
 } from 'ionicons/icons';
-import { useSavedProductsStore } from '../../lib/stores/saved-products.store';
+import { useFavoritesStore } from '../../lib/stores/favorites.store';
 import { useEffect, useMemo, useState } from 'react';
 import { ProductDetails } from '../../components/product-details';
 
@@ -41,7 +41,7 @@ function ProductDetailsView({
       params: { title },
    },
 }: IProductDetailsView) {
-   const { removeProduct, addProduct, products } = useSavedProductsStore();
+   const { removeProduct, addProduct, products } = useFavoritesStore();
 
    const { data, loading, error } = useQuery(GET_PRODUCT_DETAILS, {
       variables: {
