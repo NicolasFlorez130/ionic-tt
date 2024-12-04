@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import {
    IonBackButton,
+   IonButton,
    IonButtons,
    IonCard,
    IonCardContent,
@@ -9,6 +10,7 @@ import {
    IonCardTitle,
    IonContent,
    IonHeader,
+   IonIcon,
    IonImg,
    IonPage,
    IonSpinner,
@@ -26,6 +28,14 @@ import { Category } from '../../types/category';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import '@ionic/react/css/ionic-swiper.css';
+import {
+   heart,
+   heartDislikeOutline,
+   heartHalf,
+   heartOutline,
+} from 'ionicons/icons';
+import { useSavedProductsStore } from '../../lib/stores/saved-products.store';
+import { useEffect, useMemo, useState } from 'react';
 
 interface IProductDetailsView
    extends RouteComponentProps<{
@@ -37,6 +47,8 @@ function ProductDetailsView({
       params: { title },
    },
 }: IProductDetailsView) {
+   const { removeProduct, addProduct, products } = useSavedProductsStore();
+
    const { data, loading, error } = useQuery(GET_PRODUCT_DETAILS, {
       variables: {
          title,
@@ -45,14 +57,48 @@ function ProductDetailsView({
 
    const item = data?.products.at(0);
 
+   const [isFav, setIsFav] = useState(false);
+
+   useEffect(() => {
+      item?.id && setIsFav(products.some(({ id }) => id === item.id));
+   }, [item?.id]);
+
    return (
       <IonPage>
          <IonHeader>
             <IonToolbar>
                <IonButtons slot="start">
-                  <IonBackButton></IonBackButton>
+                  <IonBackButton />
                </IonButtons>
                <IonTitle>Product details</IonTitle>
+               <IonButtons slot="end">
+                  <IonButton
+                     disabled={!item}
+                     onClick={() => {
+                        if (!!item) {
+                           if (isFav) {
+                              removeProduct(item.id);
+                              setIsFav(false);
+                           } else {
+                              addProduct({ ...item });
+                              setIsFav(true);
+                           }
+                        }
+                     }}
+                     type="button"
+                     fill="clear"
+                  >
+                     <IonIcon
+                        icon={
+                           !item
+                              ? heartDislikeOutline
+                              : isFav
+                                ? heart
+                                : heartOutline
+                        }
+                     />
+                  </IonButton>
+               </IonButtons>
             </IonToolbar>
          </IonHeader>
          <IonContent fullscreen color="light">
@@ -84,7 +130,7 @@ interface IProductDetails {
 
 function ProductDetails({ data }: IProductDetails) {
    return (
-      <section className="space-y-4">
+      <section className="space-y-4 w-full">
          <Swiper
             className="rounded-xl [&_.swiper-button-prev]:text-white [&_.swiper-button-next]:text-white"
             navigation
