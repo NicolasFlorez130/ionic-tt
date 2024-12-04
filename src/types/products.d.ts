@@ -10,4 +10,6 @@ export interface Product {
 }
 
 export interface ProductPreview
-   extends Pick<Product, 'id' | 'title' | 'images'> {}
+   extends Pick<Product, 'id' | 'title' | 'images'> {
+   category: Pick<Category, 'name'>;
+}

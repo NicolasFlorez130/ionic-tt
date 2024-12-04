@@ -3,6 +3,7 @@ import {
    IonApp,
    IonIcon,
    IonLabel,
+   IonRedirect,
    IonRouterOutlet,
    IonTabBar,
    IonTabButton,
@@ -10,10 +11,7 @@ import {
    setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import { bag, heart } from 'ionicons/icons';
 
 import '@ionic/react/css/core.css';
 import './tailwind.css';
@@ -27,49 +25,51 @@ import './tailwind.css';
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+// import '@ionic/react/css/palettes/dark.system.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './config/apollo-client';
+import { routes } from './lib/routes';
+import FavoritesOutlet from './pages/favorites/favorites-outlet';
+import ProductsOutlet from './pages/products/products-outlet';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-   <ApolloProvider client={client}>
-      <IonApp>
-         <IonReactRouter>
-            <IonTabs>
-               <IonRouterOutlet>
-                  <Route exact path="/tab1">
-                     <Tab1 />
-                  </Route>
-                  <Route exact path="/tab2">
-                     <Tab2 />
-                  </Route>
-                  <Route path="/tab3">
-                     <Tab3 />
-                  </Route>
-                  <Route exact path="/">
-                     <Redirect to="/tab1" />
-                  </Route>
-               </IonRouterOutlet>
-               <IonTabBar slot="bottom">
-                  <IonTabButton tab="tab1" href="/tab1">
-                     <IonIcon aria-hidden="true" icon={triangle} />
-                     <IonLabel>Tab 1</IonLabel>
-                  </IonTabButton>
-                  <IonTabButton tab="tab2" href="/tab2">
-                     <IonIcon aria-hidden="true" icon={ellipse} />
-                     <IonLabel>Tab 2</IonLabel>
-                  </IonTabButton>
-                  <IonTabButton tab="tab3" href="/tab3">
-                     <IonIcon aria-hidden="true" icon={square} />
-                     <IonLabel>Tab 3</IonLabel>
-                  </IonTabButton>
-               </IonTabBar>
-            </IonTabs>
-         </IonReactRouter>
-      </IonApp>
-   </ApolloProvider>
-);
+function App() {
+   return (
+      <ApolloProvider client={client}>
+         <IonApp>
+            <IonReactRouter>
+               <IonTabs>
+                  <IonRouterOutlet>
+                     <Route path={routes().products().url}>
+                        <ProductsOutlet />
+                     </Route>
+                     <Route path={routes().favorites().url}>
+                        <FavoritesOutlet />
+                     </Route>
+                     <Redirect exact from="/" to={routes().products().url} />
+                  </IonRouterOutlet>
+                  <IonTabBar slot="bottom">
+                     <IonTabButton
+                        tab="products"
+                        href={routes().products().url}
+                     >
+                        <IonIcon aria-hidden="true" icon={bag} />
+                        <IonLabel>Productos</IonLabel>
+                     </IonTabButton>
+                     <IonTabButton
+                        tab="favorites"
+                        href={routes().favorites().url}
+                     >
+                        <IonIcon aria-hidden="true" icon={heart} />
+                        <IonLabel>Favoritos</IonLabel>
+                     </IonTabButton>
+                  </IonTabBar>
+               </IonTabs>
+            </IonReactRouter>
+         </IonApp>
+      </ApolloProvider>
+   );
+}
 
 export default App;

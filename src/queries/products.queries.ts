@@ -2,20 +2,23 @@ import { gql, TypedDocumentNode } from '@apollo/client';
 import { Product, ProductPreview } from '../types/products';
 
 export const GET_PRODUCTS_SUMMARY: TypedDocumentNode<
-   ProductPreview[],
+   { products: ProductPreview[] },
    { offset: number; limit: number; title: string }
 > = gql(`
-   query GetProductsSummary($offset: Number, $limit: Number, $title: String){
+   query GetProductsSummary($offset: Int, $limit: Int, $title: String){
       products(limit: $limit, offset: $offset, title: $title) {
          id
          title
          images
+         category {
+            name
+         }
       }
    }
 `);
 
 export const GET_PRODUCT_DETAILS: TypedDocumentNode<
-   Product[],
+   { products: Product[] },
    { title: string }
 > = gql(`
    query GetProductDetails($title: String){
