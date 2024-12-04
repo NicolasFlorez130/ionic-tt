@@ -58,14 +58,14 @@ function App() {
                         href={routes().products().url}
                      >
                         <IonIcon aria-hidden="true" icon={bag} />
-                        <IonLabel>Productos</IonLabel>
+                        <IonLabel>Products</IonLabel>
                      </IonTabButton>
                      <IonTabButton
                         tab="favorites"
                         href={routes().favorites().url}
                      >
                         <IonIcon aria-hidden="true" icon={heart} />
-                        <IonLabel>Favoritos</IonLabel>
+                        <IonLabel>Favorites</IonLabel>
                      </IonTabButton>
                   </IonTabBar>
                </IonTabs>

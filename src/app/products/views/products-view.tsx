@@ -26,6 +26,7 @@ import { GET_PRODUCTS_SUMMARY } from '../../../queries/products.queries';
 import { useEffect, useRef, useState } from 'react';
 import { routes } from '../../../lib/routes';
 import { ProductPreview } from '../../../types/products';
+import { ProductsList } from '../../../components/products-list';
 
 function ProductsView() {
    const [searchQuery, setSearchQuery] = useState<string>();
@@ -100,31 +101,10 @@ function ProductsView() {
             <section className="flex-wrap flex justify-center">
                {!!productsList ? (
                   <>
-                     <IonList inset className="w-full">
-                        {productsList.map((product, i) => (
-                           <IonItem
-                              key={`${product.id}/${i}`}
-                              routerLink={routes()
-                                 .products()
-                                 .productDetails(product.title)}
-                           >
-                              <IonThumbnail slot="start">
-                                 <IonImg
-                                    alt={`${product.title} image`}
-                                    src={product.images.at(0)}
-                                 />
-                              </IonThumbnail>
-                              <div className="w-full">
-                                 <p className="text-sm text-gray-500">
-                                    {product.category.name}
-                                 </p>
-                                 <p className="w-full font-medium truncate text-lg">
-                                    {product.title}
-                                 </p>
-                              </div>
-                           </IonItem>
-                        ))}
-                     </IonList>
+                     <ProductsList
+                        products={productsList}
+                        route={routes().products().productDetails}
+                     />
                      <IonInfiniteScroll
                         onIonInfinite={async ev => {
                            if (

@@ -10,9 +10,11 @@ function FavoritesOutlet() {
          <Route exact path={routes().favorites().url}>
             <FavoritesView />
          </Route>
-         <Route exact path={routes().favorites().productDetails()}>
-            <ProductDetailsView />
-         </Route>
+         <Route
+            exact
+            path={routes().favorites().productDetails()}
+            component={ProductDetailsView}
+         />
       </IonRouterOutlet>
    );
 }
