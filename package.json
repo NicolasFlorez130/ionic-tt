@@ -23,8 +23,8 @@
     "@capacitor/ios": "^6.2.0",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
-    "@ionic/react": "^8.0.0",
-    "@ionic/react-router": "^8.0.0",
+    "@ionic/react": "^8.4.1",
+    "@ionic/react-router": "^8.4.1",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "graphql": "^16.9.0",
@@ -36,6 +36,7 @@
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "react-virtuoso": "^4.12.3",
+    "swiper": "^11.1.15",
     "zustand": "^5.0.1"
   },
   "devDependencies": {

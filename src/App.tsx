@@ -29,8 +29,8 @@ import './tailwind.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './config/apollo-client';
 import { routes } from './lib/routes';
-import FavoritesOutlet from './pages/favorites/favorites-outlet';
-import ProductsOutlet from './pages/products/products-outlet';
+import FavoritesOutlet from './app/favorites/favorites-outlet';
+import ProductsOutlet from './app/products/products-outlet';
 
 setupIonicReact();
 

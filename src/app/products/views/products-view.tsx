@@ -8,6 +8,7 @@ import {
    IonContent,
    IonHeader,
    IonIcon,
+   IonImg,
    IonInfiniteScroll,
    IonInfiniteScrollContent,
    IonInput,
@@ -27,9 +28,8 @@ import { routes } from '../../../lib/routes';
 import { ProductPreview } from '../../../types/products';
 
 function ProductsView() {
-   const paginationRef = useRef(0);
-
    const [searchQuery, setSearchQuery] = useState<string>();
+   const paginationRef = useRef(0);
 
    const [productsList, setProductsList] = useState<ProductPreview[]>();
 
@@ -40,6 +40,18 @@ function ProductsView() {
             setProductsList(prev => [...(prev ?? []), ...products]),
       }
    );
+
+   function queryProducts() {
+      return getProducts({
+         variables: {
+            offset: paginationRef.current,
+            limit: paginationRef.current + 10,
+            title: searchQuery ?? '',
+         },
+      });
+   }
+
+   //
 
    const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -52,17 +64,11 @@ function ProductsView() {
 
             setProductsList(undefined);
 
-            await getProducts({
-               variables: {
-                  offset: 0,
-                  limit: 10,
-                  title: searchQuery,
-               },
-            });
+            await queryProducts();
 
             paginationRef.current += 10;
          }
-      }, 800);
+      }, 600);
    }, [searchQuery]);
 
    return (
@@ -100,10 +106,10 @@ function ProductsView() {
                               key={`${product.id}/${i}`}
                               routerLink={routes()
                                  .products()
-                                 .productDetails(product.id)}
+                                 .productDetails(product.title)}
                            >
                               <IonThumbnail slot="start">
-                                 <img
+                                 <IonImg
                                     alt={`${product.title} image`}
                                     src={product.images.at(0)}
                                  />
@@ -126,13 +132,7 @@ function ProductsView() {
                               paginationRef.current > 0 &&
                               (data?.products.length ?? 0) > 0
                            ) {
-                              await getProducts({
-                                 variables: {
-                                    offset: paginationRef.current,
-                                    limit: paginationRef.current + 10,
-                                    title: searchQuery,
-                                 },
-                              });
+                              await queryProducts();
 
                               paginationRef.current += 10;
                            }
