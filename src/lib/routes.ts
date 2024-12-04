@@ -12,13 +12,13 @@ export function routes() {
                `${productsUrl}/details/${slug}`,
          };
       },
-      favorites: () => {
-         const favoritesUrl = `${baseUrl}/favorites`;
+      wishList: () => {
+         const wishListUrl = `${baseUrl}/wish-list`;
 
          return {
-            url: favoritesUrl,
+            url: wishListUrl,
             productDetails: (slug = ':title') =>
-               `${favoritesUrl}/details/${slug}`,
+               `${wishListUrl}/details/${slug}`,
          };
       },
    };

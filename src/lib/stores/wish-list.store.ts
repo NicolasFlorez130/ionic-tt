@@ -1,17 +1,17 @@
 import { create, createStore } from 'zustand';
 import { ProductPreview } from '../../types/products';
 import { Preferences } from '@capacitor/preferences';
-import { FAV_PRODUCTS } from '../keys';
+import { WISH_LIST } from '../keys';
 import { useEffect } from 'react';
 
-interface FavoritesStore {
+interface WishListStore {
    products: ProductPreview[];
    setProducts(products: ProductPreview[]): void;
    addProduct(product: ProductPreview): void;
    removeProduct(id: string): void;
 }
 
-export const useFavoritesStore = create<FavoritesStore>(set => ({
+export const useWishlistStore = create<WishListStore>(set => ({
    products: [],
    setProducts: products => set({ products }),
    removeProduct: id =>
@@ -23,7 +23,7 @@ export const useFavoritesStore = create<FavoritesStore>(set => ({
          aux.splice(productIndex, 1);
 
          void Preferences.set({
-            key: FAV_PRODUCTS,
+            key: WISH_LIST,
             value: JSON.stringify(aux),
          });
 
@@ -34,7 +34,7 @@ export const useFavoritesStore = create<FavoritesStore>(set => ({
          const aux = [...products, product];
 
          void Preferences.set({
-            key: FAV_PRODUCTS,
+            key: WISH_LIST,
             value: JSON.stringify(aux),
          });
 
@@ -42,13 +42,13 @@ export const useFavoritesStore = create<FavoritesStore>(set => ({
       }),
 }));
 
-export function useSetupFavorites() {
-   const setProducts = useFavoritesStore(store => store.setProducts);
+export function useSetupWishlist() {
+   const setProducts = useWishlistStore(store => store.setProducts);
 
    useEffect(() => {
       (async () => {
          const { value } = await Preferences.get({
-            key: FAV_PRODUCTS,
+            key: WISH_LIST,
          });
 
          if (!!value) {

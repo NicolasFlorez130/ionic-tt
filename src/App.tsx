@@ -11,7 +11,7 @@ import {
    setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { bag, heart } from 'ionicons/icons';
+import { bag, bookmark } from 'ionicons/icons';
 
 import '@ionic/react/css/core.css';
 import './tailwind.css';
@@ -29,14 +29,14 @@ import './tailwind.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './config/apollo-client';
 import { routes } from './lib/routes';
-import FavoritesOutlet from './app/favorites/favorites-outlet';
+import WishlistOutlet from './app/wish-list/wish-list-outlet';
 import ProductsOutlet from './app/products/products-outlet';
-import { useSetupFavorites } from './lib/stores/favorites.store';
+import { useSetupWishlist } from './lib/stores/wish-list.store';
 
 setupIonicReact();
 
 function App() {
-   useSetupFavorites();
+   useSetupWishlist();
 
    return (
       <ApolloProvider client={client}>
@@ -47,8 +47,8 @@ function App() {
                      <Route path={routes().products().url}>
                         <ProductsOutlet />
                      </Route>
-                     <Route path={routes().favorites().url}>
-                        <FavoritesOutlet />
+                     <Route path={routes().wishList().url}>
+                        <WishlistOutlet />
                      </Route>
                      <Redirect exact from="/" to={routes().products().url} />
                   </IonRouterOutlet>
@@ -61,11 +61,11 @@ function App() {
                         <IonLabel>Products</IonLabel>
                      </IonTabButton>
                      <IonTabButton
-                        tab="favorites"
-                        href={routes().favorites().url}
+                        tab="wish-list"
+                        href={routes().wishList().url}
                      >
-                        <IonIcon aria-hidden="true" icon={heart} />
-                        <IonLabel>Favorites</IonLabel>
+                        <IonIcon aria-hidden="true" icon={bookmark} />
+                        <IonLabel>Wish List</IonLabel>
                      </IonTabButton>
                   </IonTabBar>
                </IonTabs>

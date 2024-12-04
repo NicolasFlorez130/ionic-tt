@@ -1,1 +1,1 @@
-export const FAV_PRODUCTS = 'FAV_PRODUCTS';
+export const WISH_LIST = 'WISH_LIST';

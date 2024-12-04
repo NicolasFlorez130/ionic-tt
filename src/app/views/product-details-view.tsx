@@ -21,13 +21,8 @@ import { GET_PRODUCT_DETAILS } from '../../queries/products.queries';
 import { RouteComponentProps } from 'react-router';
 import { Category } from '../../types/category';
 
-import {
-   heart,
-   heartDislikeOutline,
-   heartHalf,
-   heartOutline,
-} from 'ionicons/icons';
-import { useFavoritesStore } from '../../lib/stores/favorites.store';
+import { bookmark, bookmarkOutline } from 'ionicons/icons';
+import { useWishlistStore } from '../../lib/stores/wish-list.store';
 import { useEffect, useMemo, useState } from 'react';
 import { ProductDetails } from '../../components/product-details';
 
@@ -41,7 +36,7 @@ function ProductDetailsView({
       params: { title },
    },
 }: IProductDetailsView) {
-   const { removeProduct, addProduct, products } = useFavoritesStore();
+   const { removeProduct, addProduct, products } = useWishlistStore();
 
    const { data, loading, error } = useQuery(GET_PRODUCT_DETAILS, {
       variables: {
@@ -82,15 +77,11 @@ function ProductDetailsView({
                      type="button"
                      fill="clear"
                   >
-                     <IonIcon
-                        icon={
-                           !item
-                              ? heartDislikeOutline
-                              : isFav
-                                ? heart
-                                : heartOutline
-                        }
-                     />
+                     {!item ? (
+                        <IonSpinner name='crescent' />
+                     ) : (
+                        <IonIcon icon={isFav ? bookmark : bookmarkOutline} />
+                     )}
                   </IonButton>
                </IonButtons>
             </IonToolbar>
