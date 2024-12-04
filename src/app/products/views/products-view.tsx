@@ -85,7 +85,7 @@ function ProductsView() {
                   <IonTitle size="large">Find your product</IonTitle>
                </IonToolbar>
             </IonHeader>
-            <section className="p-4">
+            <section className="p-4 max-w-screen-md m-auto">
                <IonInput
                   className="bg-white rounded-lg !px-4"
                   aria-label="search products"

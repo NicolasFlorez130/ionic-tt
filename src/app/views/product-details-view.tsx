@@ -78,7 +78,7 @@ function ProductDetailsView({
                      fill="clear"
                   >
                      {!item ? (
-                        <IonSpinner name='crescent' />
+                        <IonSpinner name="crescent" />
                      ) : (
                         <IonIcon icon={isFav ? bookmark : bookmarkOutline} />
                      )}

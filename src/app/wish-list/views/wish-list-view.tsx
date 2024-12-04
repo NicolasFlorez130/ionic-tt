@@ -25,11 +25,17 @@ function WishlistView() {
                   <IonTitle size="large">Wish list</IonTitle>
                </IonToolbar>
             </IonHeader>
-            <section>
-               <ProductsList
-                  products={products}
-                  route={routes().wishList().productDetails}
-               />
+            <section className="flex justify-center">
+               {products.length > 0 ? (
+                  <ProductsList
+                     products={products}
+                     route={routes().wishList().productDetails}
+                  />
+               ) : (
+                  <p className="pt-4 text-center">
+                     There's no products saved yet
+                  </p>
+               )}
             </section>
          </IonContent>
       </IonPage>

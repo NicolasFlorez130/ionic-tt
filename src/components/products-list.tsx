@@ -8,7 +8,7 @@ interface IProductsList {
 
 export function ProductsList({ products, route }: IProductsList) {
    return (
-      <IonList inset>
+      <IonList inset className="w-full max-w-screen-md">
          {products.map((product, i) => (
             <IonItem
                key={`${product.id}/${i}`}
